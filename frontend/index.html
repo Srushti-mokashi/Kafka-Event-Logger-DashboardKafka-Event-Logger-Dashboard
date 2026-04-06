@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka Event Logger Dashboard</title>
+    <!-- Use Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kafka Event Logger Dashboard</h1>
+            <p><span class="status-indicator status-online"></span> Real-time Event Streaming System</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Sidebar: Form to Send Event -->
+            <section class="card">
+                <h2>📊 Produce New Event</h2>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="event_type">Event Type</label>
+                        <select id="event_type" required>
+                            <option value="" disabled selected>Select an event type</option>
+                            <option value="user_signup">👤 User Signup</option>
+                            <option value="order_placed">🛒 Order Placed</option>
+                            <option value="item_added_to_cart">🛍️ Item Added to Cart</option>
+                            <option value="payment_success">💳 Payment Success</option>
+                            <option value="user_login">🔓 User Login</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_id">User ID</label>
+                        <input type="text" id="user_id" placeholder="e.g. USER_12345" required>
+                    </div>
+                    <button type="submit" id="submitBtn">Producing Event...</button>
+                </form>
+            </section>
+
+            <!-- Main Panel: Log Table -->
+            <section class="card">
+                <h2>📃 Recent Events (Consumed)</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Event Type</th>
+                                <th>User ID</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTable">
+                            <!-- Events will be dynamically injected here -->
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-muted);">Fetching events...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Axios for API calls -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
