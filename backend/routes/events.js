@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const producer = require("../kafka/producer"); // Kafka producer
-const db = require("../database/db"); // PostgreSQL connection
+const producer = require("../kafka/producer");
+const db = require("../database/db");
+
 
 // POST /api/events
 router.post("/events", async (req, res) => {
@@ -14,27 +15,28 @@ router.post("/events", async (req, res) => {
     }
 
     try {
-        const event = {
-            event_type,
-            user_id,
-            timestamp: new Date()
-        };
+
+        const created_at = new Date();
 
         // Send event to Kafka
-        await producer.sendEvent(event);
+        await producer.sendEvent({
+            event_type,
+            user_id,
+            created_at
+        });
 
         // Store event in PostgreSQL
         await db.query(
-            "INSERT INTO events (event_type, user_id, timestamp) VALUES ($1, $2, $3)",
-            [event_type, user_id, event.timestamp]
+            "INSERT INTO events (event_type, user_id, created_at) VALUES ($1,$2,$3)",
+            [event_type, user_id, created_at]
         );
 
-        res.status(202).json({
-            message: "Event successfully produced and stored"
+        res.status(201).json({
+            message: "Event stored successfully"
         });
 
     } catch (error) {
-        console.error("API Error producing event:", error);
+        console.error("POST /events error:", error);
         res.status(500).json({
             error: "Internal Server Error"
         });
@@ -47,18 +49,19 @@ router.get("/events", async (req, res) => {
     try {
 
         const rows = await db.query(
-            "SELECT id, event_type, user_id, timestamp AS created_at FROM events ORDER BY timestamp DESC LIMIT 50"
+            "SELECT id, event_type, user_id, created_at FROM events ORDER BY created_at DESC LIMIT 50"
         );
 
         res.status(200).json(rows);
 
     } catch (error) {
-        console.error("API Error fetching events:", error);
+        console.error("GET /events error:", error);
         res.status(500).json({
             error: "Internal Server Error"
         });
     }
 });
+
 
 module.exports = router;
 
