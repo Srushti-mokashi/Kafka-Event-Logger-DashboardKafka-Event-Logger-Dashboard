@@ -3,7 +3,7 @@ const API_URL =
     window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1"
         ? "http://localhost:3000/api"
-        : "https://kafka-event-logger-backend.onrender.com/api";
+        : "https://kafka-event-logger-dashboardkafka-event.onrender.com/api/"
 
 // DOM Elements
 const eventForm = document.getElementById("eventForm");
