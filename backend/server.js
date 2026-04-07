@@ -1,49 +1,47 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 
-const { connectProducer } = require('./kafka/producer');
-const { runConsumer } = require('./kafka/consumer');
-const eventRoutes = require('./routes/events');
+const { connectProducer } = require("./kafka/producer");
+const { runConsumer } = require("./kafka/consumer");
+const eventRoutes = require("./routes/events");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-// Serve static frontend files if needed
-// const path = require('path');
-// app.use(express.static(path.join(__dirname, '../frontend')));
+app.use("/api", eventRoutes);
 
-// API Routes
-app.use('/api', eventRoutes);
-
-// Add a test GET / route
-app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to Kafka Event Logger Dashboard API' });
+app.get("/", (req, res) => {
+    res.json({ message: "Kafka Event Logger Dashboard API running" });
 });
 
-// Initialization function
 const init = async () => {
-    try {
-        console.log('🚀 Starting the Kafka Event Logger System...');
 
-        // Connect Kafka Producer
-        await connectProducer();
+    console.log("Starting Kafka Event Logger System");
 
-        // Start Kafka Consumer asynchronously
-        runConsumer().catch(err => console.error('❌ Kafka Consumer Error:', err));
+    if (process.env.ENABLE_KAFKA === "true") {
+        try {
+            await connectProducer();
+            console.log("Kafka Producer connected");
 
-        // Start Express Server
-        app.listen(PORT, () => {
-            console.log(`📡 Backend server is running on http://localhost:${PORT}`);
-        });
-    } catch (error) {
-        console.error('❌ Initialization failed:', error);
+            runConsumer().catch(err =>
+                console.error("Kafka Consumer Error:", err)
+            );
+
+        } catch (err) {
+            console.log("Kafka not available. Running API without Kafka.");
+        }
+    } else {
+        console.log("Kafka disabled. Running API only.");
     }
+
+    app.listen(PORT, () => {
+        console.log("Server running on port " + PORT);
+    });
+
 };
 
-// Start the application
 init();

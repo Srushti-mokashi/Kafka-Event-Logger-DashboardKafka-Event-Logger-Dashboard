@@ -1,16 +1,20 @@
-const mysql = require('mysql2');
-require('dotenv').config();
+const { Pool } = require("pg");
+require("dotenv").config();
 
-// Create the connection pool to the database
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'user',
-    password: process.env.DB_PASSWORD || 'password',
-    database: process.env.DB_NAME || 'event_logger',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
-// Export the promise-based pool for easier async/await usage
-module.exports = pool.promise();
+
+module.exports = {
+    query: async (sql, params) => {
+        const { rows } = await pool.query(sql, params);
+        return rows;
+    },
+    pool
+};
+
