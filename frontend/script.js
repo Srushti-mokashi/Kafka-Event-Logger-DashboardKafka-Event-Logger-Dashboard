@@ -3,12 +3,15 @@ const API_URL =
     window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1"
         ? "http://localhost:3000/api"
-        : "https://kafka-event-logger-dashboardkafka-event.onrender.com/api/"
+        : "https://kafka-event-logger-dashboardkafka-event.onrender.com/api";
 
 // DOM Elements
 const eventForm = document.getElementById("eventForm");
 const eventsTable = document.getElementById("eventsTable");
 const submitBtn = document.getElementById("submitBtn");
+
+let typeChart;
+let timelineChart;
 
 // Fetch and display events
 const fetchEvents = async () => {
@@ -42,6 +45,10 @@ const fetchEvents = async () => {
 
             eventsTable.appendChild(row);
         });
+
+        // Render charts with latest events
+        renderCharts(events);
+
     } catch (error) {
         console.error("Error fetching events:", error);
     }
@@ -80,15 +87,68 @@ eventForm.addEventListener("submit", async (e) => {
         setTimeout(fetchEvents, 1500);
     } catch (error) {
         console.error("Error producing event:", error);
-        alert("Failed to send event. Backend may be sleeping.");
+        alert("Server is waking up. Please try again in a few seconds.");
     } finally {
         submitBtn.innerText = "Produce Event";
         submitBtn.disabled = false;
     }
 });
 
+// Chart rendering
+function renderCharts(events) {
+    const typeCounts = {};
+    const timelineCounts = {};
+
+    events.forEach((event) => {
+        const type = event.event_type;
+        typeCounts[type] = (typeCounts[type] || 0) + 1;
+
+        const time = new Date(event.created_at).toLocaleTimeString();
+        timelineCounts[time] = (timelineCounts[time] || 0) + 1;
+    });
+
+    const typeLabels = Object.keys(typeCounts);
+    const typeData = Object.values(typeCounts);
+
+    const timeLabels = Object.keys(timelineCounts);
+    const timeData = Object.values(timelineCounts);
+
+    if (typeChart) typeChart.destroy();
+    if (timelineChart) timelineChart.destroy();
+
+    const ctx1 = document.getElementById("eventTypeChart").getContext("2d");
+    const ctx2 = document.getElementById("eventTimelineChart").getContext("2d");
+
+    typeChart = new Chart(ctx1, {
+        type: "pie",
+        data: {
+            labels: typeLabels,
+            datasets: [
+                {
+                    label: "Events",
+                    data: typeData,
+                },
+            ],
+        },
+    });
+
+    timelineChart = new Chart(ctx2, {
+        type: "line",
+        data: {
+            labels: timeLabels,
+            datasets: [
+                {
+                    label: "Events Over Time",
+                    data: timeData,
+                },
+            ],
+        },
+    });
+}
+
 // Initial load
 fetchEvents();
 
 // Auto refresh
 setInterval(fetchEvents, 5000);
+
