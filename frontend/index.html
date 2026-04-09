@@ -2,92 +2,141 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kafka Event Logger Dashboard</title>
-    <!-- Use Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kafka Event Logger Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>Kafka Event Logger Dashboard</h1>
-            <p><span class="status-indicator status-online"></span> Real-time Event Streaming System</p>
-        </header>
 
-        <main class="dashboard-grid">
-            <div style="margin-top:40px;">
-                <h3 style="color:white;">Event Analytics</h3>
+<div class="container">
 
-                <div style="display:flex; gap:30px; flex-wrap:wrap; margin-top:20px;">
+<header class="header">
+<h1>Kafka Event Logger Dashboard</h1>
+<p class="subtitle">
+<span class="status-indicator status-online"></span>
+Real-time Event Streaming System
+</p>
+</header>
 
-                    <div style="background:#111827; padding:20px; border-radius:10px;">
-                        <canvas id="eventTypeChart" width="400" height="250"></canvas>
-                    </div>
 
-                    <div style="background:#111827; padding:20px; border-radius:10px;">
-                        <canvas id="eventTimelineChart" width="400" height="250"></canvas>
-                    </div>
+<div class="dashboard">
 
-                </div>
-            </div>
-            <!-- Sidebar: Form to Send Event -->
-            <section class="card">
-                <h2>📊 Produce New Event</h2>
-                <form id="eventForm">
-                    <div class="form-group">
-                        <label for="event_type">Event Type</label>
-                        <select id="event_type" required>
-                            <option value="" disabled selected>Select an event type</option>
-                            <option value="user_signup">👤 User Signup</option>
-                            <option value="order_placed">🛒 Order Placed</option>
-                            <option value="item_added_to_cart">🛍️ Item Added to Cart</option>
-                            <option value="payment_success">💳 Payment Success</option>
-                            <option value="user_login">🔓 User Login</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="user_id">User ID</label>
-                        <input type="text" id="user_id" placeholder="e.g. USER_12345" required>
-                    </div>
-                    <button type="submit" id="submitBtn">Producing Event...</button>
-                </form>
-            </section>
+<!-- EVENT PRODUCER -->
 
-            <!-- Main Panel: Log Table -->
-            <section class="card">
-                <h2>📃 Recent Events (Consumed)</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Event Type</th>
-                                <th>User ID</th>
-                                <th>Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody id="eventsTable">
-                            <!-- Events will be dynamically injected here -->
-                            <tr>
-                                <td colspan="4" style="text-align: center; color: var(--text-muted);">Fetching events...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    </div>
+<div class="card form-card">
 
-    <!-- Axios for API calls -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<h2>Produce Event</h2>
+
+<form id="eventForm">
+
+<div class="form-group">
+<label>Event Type</label>
+
+<select id="event_type" required>
+
+<option disabled selected>Select event type</option>
+
+<option value="user_signup">User Signup</option>
+<option value="order_placed">Order Placed</option>
+<option value="item_added_to_cart">Item Added to Cart</option>
+<option value="payment_success">Payment Success</option>
+<option value="user_login">User Login</option>
+
+</select>
+</div>
+
+<div class="form-group">
+
+<label>User ID</label>
+<input id="user_id" placeholder="USER_12345" required>
+
+</div>
+
+<button id="submitBtn" type="submit">
+Produce Event
+</button>
+
+</form>
+
+</div>
+
+
+<!-- ANALYTICS -->
+
+<div class="card chart-card">
+
+<h2>Event Analytics</h2>
+
+<div class="chart-grid">
+
+<div class="chart-box">
+<canvas id="eventTypeChart"></canvas>
+</div>
+
+<div class="chart-box">
+<canvas id="eventTimelineChart"></canvas>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- EVENTS TABLE -->
+
+<div class="card table-card">
+
+<h2>Recent Events</h2>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Event Type</th>
+<th>User</th>
+<th>Timestamp</th>
+</tr>
+
+</thead>
+
+<tbody id="eventsTable">
+
+<tr>
+<td colspan="4" class="loading">
+Fetching events...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
-
 </html>
