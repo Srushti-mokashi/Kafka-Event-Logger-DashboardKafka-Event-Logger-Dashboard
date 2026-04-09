@@ -23,20 +23,47 @@
 
 <div class="container">
 
-<header class="header">
+<header>
 <h1>Kafka Event Logger Dashboard</h1>
-<p class="subtitle">
+<p>
 <span class="status-indicator status-online"></span>
 Real-time Event Streaming System
 </p>
 </header>
 
 
-<div class="dashboard">
+<!-- METRICS -->
+<div class="metrics">
 
-<!-- EVENT PRODUCER -->
+<div class="metric-card">
+<h3>Total Events</h3>
+<p id="totalEvents">0</p>
+</div>
 
-<div class="card form-card">
+<div class="metric-card">
+<h3>User Signups</h3>
+<p id="signupCount">0</p>
+</div>
+
+<div class="metric-card">
+<h3>Orders</h3>
+<p id="orderCount">0</p>
+</div>
+
+<div class="metric-card">
+<h3>Payments</h3>
+<p id="paymentCount">0</p>
+</div>
+
+</div>
+
+
+<!-- DASHBOARD GRID -->
+<div class="dashboard-grid">
+
+<!-- PRODUCE EVENT -->
+
+<section class="card form-card">
 
 <h2>Produce Event</h2>
 
@@ -47,11 +74,11 @@ Real-time Event Streaming System
 
 <select id="event_type" required>
 
-<option disabled selected>Select event type</option>
+<option disabled selected>Select event</option>
 
 <option value="user_signup">User Signup</option>
 <option value="order_placed">Order Placed</option>
-<option value="item_added_to_cart">Item Added to Cart</option>
+<option value="item_added_to_cart">Item Added</option>
 <option value="payment_success">Payment Success</option>
 <option value="user_login">User Login</option>
 
@@ -59,28 +86,24 @@ Real-time Event Streaming System
 </div>
 
 <div class="form-group">
-
 <label>User ID</label>
 <input id="user_id" placeholder="USER_12345" required>
-
 </div>
 
-<button id="submitBtn" type="submit">
-Produce Event
-</button>
+<button id="submitBtn">Produce Event</button>
 
 </form>
 
-</div>
+</section>
 
 
-<!-- ANALYTICS -->
+<!-- CHARTS -->
 
-<div class="card chart-card">
+<section class="card charts">
 
 <h2>Event Analytics</h2>
 
-<div class="chart-grid">
+<div class="charts-grid">
 
 <div class="chart-box">
 <canvas id="eventTypeChart"></canvas>
@@ -92,12 +115,14 @@ Produce Event
 
 </div>
 
+</section>
+
 </div>
 
 
-<!-- EVENTS TABLE -->
+<!-- EVENTS TABLE FULL WIDTH -->
 
-<div class="card table-card">
+<section class="card table-card">
 
 <h2>Recent Events</h2>
 
@@ -130,9 +155,7 @@ Fetching events...
 
 </div>
 
-</div>
-
-</div>
+</section>
 
 </div>
 
