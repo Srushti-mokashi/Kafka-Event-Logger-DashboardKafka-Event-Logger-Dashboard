@@ -185,32 +185,22 @@ Monitor real-time event flow
 
 This is similar to log monitoring dashboards used by support engineers.
 
-##Key Technologies Used
+## Key Technologies Used
+
 Apache Kafka
-
 Distributed event streaming platform used for real-time data pipelines.
-
 Node.js / Backend API
-
 Handles event creation and communication with Kafka.
-
 React / Frontend
-
 Builds the interactive dashboard UI.
-
 Chart.js
-
 Used to visualize analytics data with charts.
-
 REST APIs
-
 Used for communication between frontend and backend.
-
 Real-World Applications
 
-This system demonstrates concepts used in:
-
-##Microservices architecture
+## This system demonstrates concepts used in:
+Microservices architecture
 Real-time analytics
 Event-driven systems
 System monitoring tools
@@ -218,9 +208,8 @@ Distributed system debugging
 
 Companies like Uber, Netflix, LinkedIn, and Amazon use similar event streaming systems.
 
-Skills Demonstrated
 
-##This project demonstrates skills in:
+## This project demonstrates skills in:
 
 Event-driven architecture
 Kafka event streaming
