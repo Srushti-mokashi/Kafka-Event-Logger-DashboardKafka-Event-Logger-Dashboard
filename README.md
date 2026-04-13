@@ -5,7 +5,7 @@ This project is a real-time event monitoring dashboard built using Apache Kafka.
 It simulates how modern backend systems track and analyze events such as user actions, orders, and payments.
 The system allows users to produce events, stream them through Kafka, store them, and visualize analytics in real time.
 
-##This type of architecture is commonly used in:
+## This type of architecture is commonly used in:
 
 E-commerce platforms
 Payment systems
@@ -13,7 +13,7 @@ User activity tracking
 Microservices monitoring
 System observability dashboards
 
-##The dashboard helps visualize how event-driven architectures work in real production systems.
+## The dashboard helps visualize how event-driven architectures work in real production systems.
 System Architecture
 The project follows an event-driven architecture.
 
@@ -37,7 +37,7 @@ This architecture allows real-time streaming and processing of events.
 
 ##Screenshots & Feature Explanation
 
-##1️⃣ Event Counters (counts.png)
+## 1️⃣ Event Counters (counts.png)
 
 This section displays real-time metrics summarizing system activity.
 
@@ -54,7 +54,7 @@ Provides quick insight into system activity
 Helps monitor system behavior in real time
 Similar to monitoring dashboards used by backend teams.
 
-##2️⃣ Main Dashboard (dashboard1.png)
+## 2️⃣ Main Dashboard (dashboard1.png)
 
 The main dashboard acts as the central control panel for monitoring Kafka events.
 
@@ -67,7 +67,7 @@ Recent event logs
 
 This page gives a complete overview of the system state.
 
-##3️⃣ Analytics Dashboard (dashboard2.png)
+## 3️⃣ Analytics Dashboard (dashboard2.png)
 
 This section visualizes event data using charts and graphs.
 
@@ -83,7 +83,7 @@ System monitoring tools
 DevOps dashboards
 Observability platforms
 
-##4️⃣ System Architecture Diagram (diagram.png)
+## 4️⃣ System Architecture Diagram (diagram.png)
 
 This diagram explains the internal workflow of the system.
 
@@ -115,7 +115,7 @@ Processed data is stored and visualized in the dashboard.
 
 This architecture demonstrates event-driven system design, widely used in modern distributed systems.
 
-##5️⃣ Event Timeline Graph (events-timeline.png)
+## 5️⃣ Event Timeline Graph (events-timeline.png)
 
 This graph shows how events occur over time.
 
@@ -131,7 +131,7 @@ Detecting unusual system activity
 Monitoring application usage
 Performance analysis
 
-##6️⃣ Produce Event Panel (produce-event.png)
+## 6️⃣ Produce Event Panel (produce-event.png)
 
 This feature allows users to simulate system events manually.
 
@@ -152,7 +152,7 @@ Kafka topic receives the event
 Consumers process the event
 Dashboard updates in real time
 
-##7️⃣ Event Type Selection (produce-event-type.png)
+## 7️⃣ Event Type Selection (produce-event-type.png)
 
 This dropdown allows selecting different types of system events.
 
@@ -166,7 +166,7 @@ user_login
 
 Each event represents a real-world user action inside a system.
 
-##8️⃣ Recent Events Table (recent-events.png)
+## 8️⃣ Recent Events Table (recent-events.png)
 
 This section displays the latest events processed by the system.
 
@@ -230,7 +230,7 @@ System monitoring
 Distributed system design
 
 
-
+## Live links
 frontend : https://kafka-event-logger-dashboard-kafka.vercel.app
 backend : https://kafka-event-logger-dashboardkafka-event.onrender.com
 databse : neon (postgreSQL)
