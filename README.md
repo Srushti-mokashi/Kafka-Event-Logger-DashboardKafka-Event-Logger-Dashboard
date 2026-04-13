@@ -129,10 +129,28 @@ node server/app.js
 
 ## Screenshots
 
-### ## Dashboard Preview
+###  Dashboard Preview
 
 ![Dashboard](screenshots/dashboard1.png)
 ![Dashboard](screenshots/dashboard2.png)
+
+### Counts
+
+![Dashboard](screenshots/counts.png)
+
+### Event-Form
+
+![Dashboard](screenshots/produce-event.png)
+![Dashboard](screenshots/produce-event-type.png)
+
+### Event Analytics
+
+![Dashboard](screenshots/diagram.png)
+![Dashboard](screenshots/events-timeline.png)
+
+### Recent Events
+
+![Dashboard](screenshots/recent-events.png)
 
 ## Learning Outcomes
 
