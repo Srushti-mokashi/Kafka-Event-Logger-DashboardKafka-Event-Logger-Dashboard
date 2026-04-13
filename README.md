@@ -74,7 +74,7 @@ Backend API for event logging
 Event processing with Kafka consumers
 Database storage of events
 Monitoring dashboard for analytics
-Simulated real-world event-driven architecture
+Simulated real-world event-driven architecture 
 
 
 
